@@ -83,6 +83,10 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
 
   const foundTodo = user.todos.find(todo => todo.id === id)
 
+  if (!foundTodo) {
+    return response.status(404).json({ error: "This todo not exists" })
+  }
+
   const updatedTodos = user.todos.filter(todo => todo !== foundTodo)
 
   user.todos = updatedTodos
